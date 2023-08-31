@@ -2,100 +2,32 @@
 // @ts-nocheck
 
 
-async function getCover(track_id) {
-    const endpoint = 'https://api.spotify.com/v1/';
-    const method = `tracks/${track_id}`;
-    const client_id = '3af824c86153492999c0f1e3b4406adb';
-    const client_secret = 'e4f10afaccc34522b09e25ffa3dcabd8';
-
-    // Use client ID and client secret to obtain an access token
-    const tokenUrl = 'https://accounts.spotify.com/api/token';
-    const credentials = `${client_id}:${client_secret}`;
-    const encodedCredentials = btoa(credentials);
-    const tokenHeaders = {
-        'Authorization': `Basic ${encodedCredentials}`,
-        'Content-Type': 'application/x-www-form-urlencoded'
-    };
-    const tokenData = new URLSearchParams({
-        'grant_type': 'client_credentials'
-    });
-
-    const tokenResponse = await fetch(tokenUrl, {
-        method: 'POST',
-        headers: tokenHeaders,
-        body: tokenData
-    });
-
-    if (tokenResponse.ok) {
-        const tokenData = await tokenResponse.json();
-        const accessToken = tokenData.access_token;
-
-        // Make the request to the API using the access token
-        const headers = {
-            'Authorization': `Bearer ${accessToken}`
-        };
-        const params = new URLSearchParams({
-            'market': 'US'
-        });
-
-        const response = await fetch(endpoint + method + '?' + params.toString(), {
-            headers: headers
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            const coverUrl = data.album.images[0].url;
-            return coverUrl;
-        } else {
-            return `Error: ${response.status} - ${response.statusText}`;
-        }
-    } else {
-        return `Error: ${tokenResponse.status} - ${tokenResponse.statusText}`;
-    }
-}
-
-
 
 
 	const pages = ['home', 'projects', 'songs', 'contact']
-    const thumbnails = [];
 
     const liked_songs = [
     {
         title: 'Icee pop',
         id: '1zKOagmkCtXuGmCivG8HZE',
         artist: 'Nic D',
-        thumbnail: thumbnails[0],
         genre: 'singer-songwriter pop'
     },
     {
         title: 'Right Now',
         id: '2PneyQbePKwFGOtI86xckP',
         artist: 'Confetii',
-        thumbnail: thumbnails[1],
         genre: 'LA Pop'
     },
     {
         title: 'Love your voice',
         id: '4hyVrAsoKKjxAvQjPRt0ai',
         artist: 'JONY',
-        thumbnail: thumbnails[2],
         genre: 'Russian pop, Russian dance'
     }
     ];
 
-    for (let i = 0; i < liked_songs.length; i++) {
-
-  getCover(liked_songs[i].id)
-    .then(coverUrl => {
-thumbnails.push(coverUrl);
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-  }
-
-
+  
     
     const icon = [
     'https://media.discordapp.net/attachments/1058462242359738439/1146861120984989716/NXNEW.png?width=150&height=150'];
@@ -224,17 +156,6 @@ console.log(response.data);
              -->
                 {#each liked_songs as song}
                 <iframe title="{song.title}" style="border-radius:12px" src="https://open.spotify.com/embed/track/{song.id}?utm_source=generator&theme=1" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                <!--
-                <div class="backdrop-blur-sm rounded-xl relative bg-opacity-70 bg-gray-900 p-4 song">
-                  <div class="flex items-center flex-col mb-4">
-                    <img src={song.thumbnail} alt="thumbnail" class="h-20 w-20 rounded-full mb-2">
-                    <div class="text-center">
-                      <h4 class="text-white font-semibold text-lg song-title">{song.title}</h4>
-                      <p class="text-white font-semibold text-sm song-artist">{song.artist}</p>
-                    </div>
-                  </div>
-                  <p class="text-white font-semibold text-1xl song-genre">{song.genre}</p>
-                </div>-->
                 {/each}
               </div>
             </div>
