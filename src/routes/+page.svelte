@@ -24,6 +24,16 @@
           id: '4hyVrAsoKKjxAvQjPRt0ai',
           artist: 'JONY',
           genre: 'Russian pop, Russian dance'
+      },{
+          title: 'In my head',
+          id: '3I3O8aazwBKkXN6RNjY06L',
+          artist: '24kGoldn & Travis Barker',
+          genre: 'pop rap, call rap, rap rock'
+      },{
+          title: 'Anders',
+          id: '5TYmnScjaRecWuBqEaA7S5',
+          artist: '01099, Paul, Ski Aggu',
+          genre: 'German hip hop'
       }
       ];
   
